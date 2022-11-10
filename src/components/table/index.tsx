@@ -270,7 +270,7 @@ export const Table = () => {
                           personIdx !== people.length - 1
                             ? "border-b border-gray-200"
                             : "",
-                          "whitespace-nowrap px-3 py-4 text-sm text-gray-600 hidden sm:table-cell "
+                          " px-3 py-4 text-sm text-gray-600 hidden sm:table-cell "
                         )}
                       >
                         {person.title}
@@ -283,7 +283,7 @@ export const Table = () => {
                           personIdx !== people.length - 1
                             ? "border-b border-gray-200"
                             : "",
-                          "whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                          " px-3 py-4 text-sm text-gray-500"
                         )}
                       >
                         <Badge label={person.status} status={person.status} />
@@ -293,7 +293,7 @@ export const Table = () => {
                           personIdx !== people.length - 1
                             ? "border-b border-gray-200"
                             : "",
-                          "relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8"
+                          "relative  py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8"
                         )}
                       >
                         <a

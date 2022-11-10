@@ -9,10 +9,10 @@ import {
 export const Header = () => {
   return (
     <div className="mb-4 flex items-center">
-      <div className="w-1/2">
+      <div className="w-3/5">
         <Stats />
       </div>
-      <div className="w-1/2 flex justify-end ">
+      <div className="w-2/5 flex justify-end ">
         <Button className="mr-2">
           <DocumentMagnifyingGlassIcon className="w-4 mr-2" />
           Workspace result

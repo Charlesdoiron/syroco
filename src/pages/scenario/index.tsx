@@ -7,7 +7,7 @@ export const Scenario = () => {
     <div className="p-4 h-screen ">
       <Header />
       <div className="flex justify-between mt-2">
-        <Box className=" w-1/2 mr-1">
+        <Box className=" w-3/5 mr-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900 ">
             Latest Scenario
           </h3>
@@ -15,7 +15,7 @@ export const Scenario = () => {
             <Table />
           </div>
         </Box>
-        <Box className="w-1/2 ml-1">
+        <Box className="w-2/5 ml-1">
           <h1 className="text-xl font-bold">Scenario details</h1>
         </Box>
       </div>
