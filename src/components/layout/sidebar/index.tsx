@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   Bars3BottomLeftIcon,
   CalendarIcon,
@@ -9,21 +9,13 @@ import {
   InboxIcon,
   UsersIcon,
   XMarkIcon,
+  Cog6ToothIcon,
+  ArrowLeftOnRectangleIcon,
+  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 
 import Logo from "assets/logo.png";
-
-const navigation = [
-  { name: "Overview", href: "/overview", icon: HomeIcon, current: true },
-  { name: "Models", href: "/models", icon: UsersIcon, current: false },
-  { name: "Twins", href: "/twins", icon: FolderIcon, current: false },
-  { name: "Design", href: "/design", icon: CalendarIcon, current: false },
-  { name: "Scenario", href: "/scenario", icon: InboxIcon, current: false },
-];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Item } from "./item";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -31,7 +23,39 @@ interface SidebarProps {
 
 export const Sidebar = ({ children }: SidebarProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const location = useLocation().pathname;
+  const navigation = [
+    {
+      name: "Overview",
+      href: "/overview",
+      icon: HomeIcon,
+      current: location === "/",
+    },
+    {
+      name: "Models",
+      href: "/models",
+      icon: UsersIcon,
+      current: location === "/models",
+    },
+    {
+      name: "Twins",
+      href: "/twins",
+      icon: FolderIcon,
+      current: location === "/twins",
+    },
+    {
+      name: "Design",
+      href: "/design",
+      icon: CalendarIcon,
+      current: location === "/design",
+    },
+    {
+      name: "Scenario",
+      href: "/scenario",
+      icon: InboxIcon,
+      current: location === "/scenario",
+    },
+  ];
   return (
     <>
       <div>
@@ -93,27 +117,7 @@ export const Sidebar = ({ children }: SidebarProps) => {
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav className="space-y-1 px-2">
                       {navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                          )}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? "text-gray-300"
-                                : "text-gray-400 group-hover:text-gray-300",
-                              "mr-4 flex-shrink-0 h-6 w-6"
-                            )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </Link>
+                        <Item item={item} key={item.name} />
                       ))}
                     </nav>
                   </div>
@@ -129,41 +133,51 @@ export const Sidebar = ({ children }: SidebarProps) => {
         {/* Static sidebar for desktop */}
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex min-h-0 flex-1 flex-col bg-brand">
-            <div className="flex h-16 justify-center items-center bg-brand px-4 mt-4">
-              <img className="h-8 w-auto" src={Logo} alt="Your Company" />
+          <div className="flex min-h-0 flex-1 flex-col bg-white">
+            <div className="flex h-16 justify-center items-center bg-white px-4 mt-4">
+              <img className="h-40 w-auto" src={Logo} alt="Your Company" />
             </div>
             <div className="flex flex-1 flex-col overflow-y-auto">
               <nav className="flex-1 space-y-1 px-2 py-4">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-brand-light text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
-                    )}
-                  >
-                    <item.icon
-                      className={classNames(
-                        item.current
-                          ? "text-gray-300"
-                          : "text-gray-400 group-hover:text-gray-300",
-                        "mr-3 flex-shrink-0 h-6 w-6"
-                      )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
+                  <Item item={item} />
                 ))}
               </nav>
+            </div>
+            <div className="p-2">
+              <div className="border-t border-brand-light opacity-10 m-3" />
+              <Item
+                item={{
+                  isSmall: true,
+                  name: "Profile",
+                  href: "/profile",
+                  icon: UserCircleIcon,
+                  current: location === "/profile",
+                }}
+              />
+              <Item
+                item={{
+                  isSmall: true,
+                  name: "Settings",
+                  href: "/settings",
+                  icon: Cog6ToothIcon,
+                  current: location === "/settings",
+                }}
+              />
+              <Item
+                item={{
+                  isSmall: true,
+                  name: "Logout",
+                  href: "/logout",
+                  icon: ArrowLeftOnRectangleIcon,
+                  current: location === "/logout",
+                }}
+              />
             </div>
           </div>
         </div>
         <div className="flex flex-col md:pl-64">
-          <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 ">
+          <div className="sticky top-0 z-10  h-16 flex-shrink-0 md:hidden flex ">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -175,17 +189,8 @@ export const Sidebar = ({ children }: SidebarProps) => {
           </div>
 
           <main className="flex-1">
-            <div className="py-6">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
-                </h1>
-              </div>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                {/* Replace with your content */}
-                <div className="py-4">{children}</div>
-                {/* /End replace */}
-              </div>
+            <div className="w-full">
+              <div className="bg-gray-100">{children}</div>
             </div>
           </main>
         </div>

@@ -1,8 +1,9 @@
-export const Overview = () => {
+export const Design = () => {
   return (
     <div className="flex justify-center h-screen items-center">
       <h1 className="text-3xl">
-        Overview <span className="text-orange">•</span>
+        Design
+        <span className="text-orange">•</span>
       </h1>
     </div>
   );
