@@ -33,6 +33,7 @@ interface Props {
   href?: string;
   onClick?: () => void;
   type?: "submit" | "button" | "reset";
+  isLoading?: boolean;
 }
 
 export function Button({
@@ -41,6 +42,7 @@ export function Button({
   className,
   href,
   type = "button",
+  isLoading,
   ...props
 }: Props) {
   className = clsx(
@@ -52,6 +54,11 @@ export function Button({
   return href ? (
     <Link to={href} className={className} {...props} />
   ) : (
-    <button className={className} {...props} type={type} />
+    <button
+      className={`${className} ${isLoading ? "cursor-wait" : "cursor-pointer"}`}
+      {...props}
+      type={type}
+      disabled={isLoading}
+    />
   );
 }
