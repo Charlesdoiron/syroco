@@ -10,10 +10,10 @@ export const Badge = ({
     failed: "bg-red-100 text-red-800",
     success: "bg-green-100 text-green-800",
   };
-
+  if (!label) return <></>;
   return (
     <span
-      className={`items-center rounded-full flex px-2.5 py-0.5 text-xs font-medium ${variant[status]} min-w-[80px] justify-center`}
+      className={`items-center rounded-full flex px-2.5 py-0.5 text-xs font-medium ${variant[status]} min-w-[80px] justify-center max-h-5`}
     >
       {label}
     </span>

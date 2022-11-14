@@ -40,7 +40,7 @@ export const Input: React.FC<Props> = ({
   return (
     <>
       {label && (
-        <label htmlFor={id} className={variant}>
+        <label htmlFor={id} className="text-sm">
           {label} {required ? "*" : ""}{" "}
         </label>
       )}
@@ -72,7 +72,7 @@ export const Input: React.FC<Props> = ({
           id={id}
           name={id}
           autoComplete={autoComplete}
-          className={` h-10 block w-full rounded-sm border px-4 py-3 mt-2  focus:border-blue-600 focus:ring-blue-600 sm:text-sm placeholder:text-[15px] placeholder:text-border ${className} ${
+          className={` h-10 block w-full rounded-sm border px-4 py-3 mt-1  focus:border-blue-600 focus:ring-blue-600 sm:text-sm placeholder:text-[15px] placeholder:text-border ${className} ${
             error && isTouched ? "border-red-500" : "border-border"
           }`}
           placeholder={placeholder}
